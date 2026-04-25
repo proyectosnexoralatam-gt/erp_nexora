@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Renovación - Nexora ERP</title>
+
+  <meta name="theme-color" content="#F2F2F7">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@800&display=swap');
+    
+    :root {
+      --nexora-green: #58D073;
+      --nexora-green-dark: #48B860;
+      --ios-bg: #F2F2F7;
+      --wa-color: #25D366; /* Verde oficial de WhatsApp */
+      --wa-color-dark: #1EBE5D;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: var(--ios-bg);
+      -webkit-user-select: none;
+      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ios-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .license-card {
+      background: #ffffff;
+      width: 100%;
+      /* Aumentamos el max-width para que quepan las 3 columnas */
+      max-width: 850px; 
+      border-radius: 24px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      text-align: center;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Icono animado de candado/bloqueo */
+    .icon-container {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px auto;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .icon-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px; /* Borde redondeado estilo iOS */
+      box-shadow: 0 4px 12px rgba(88, 208, 115, 0.3);
+      -webkit-user-drag: none;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      color: #1A1A1A;
+      margin: 0 0 12px 0;
+      letter-spacing: -0.5px;
+    }
+
+    p.header-desc {
+      font-size: 15px;
+      color: #8E8E93;
+      line-height: 1.5;
+      margin: 0 auto 30px auto;
+      max-width: 450px; /* Evita que el texto se estire mucho en PC */
+    }
+
+    /* Modificado para ser un Grid de 3 columnas */
+    .plans-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: stretch;
+    }
+
+    /* Modificado para acomodar contenido de arriba hacia abajo */
+    .plan-card {
+      border: 1.5px solid #E5E5EA;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .plan-card:hover {
+      border-color: var(--nexora-green);
+      box-shadow: 0 8px 20px rgba(88, 208, 115, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .plan-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1; /* Permite que el contenido empuje el botón hacia abajo */
+    }
+
+    .plan-name {
+      font-weight: 600;
+      color: #1A1A1A;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .plan-price {
+      font-weight: 800;
+      color: var(--nexora-green);
+      font-size: 22px;
+    }
+
+    .plan-price span {
+      font-size: 13px;
+      color: #8E8E93;
+      font-weight: 500;
+    }
+
+    .plan-desc {
+      font-size: 12px;
+      color: #8E8E93;
+      margin-top: 4px;
+      min-height: 15px; /* Mantiene la alineación aunque no haya texto */
+    }
+
+    .plan-features {
+      margin-top: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-item {
+      font-size: 12px;
+      color: #8E8E93;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .feature-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--nexora-green);
+      flex-shrink: 0;
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #FF9500;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-bottom-left-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Botón modificado para abarcar todo el ancho de la tarjeta */
+    .btn-plan-wa {
+      background: var(--wa-color);
+      color: white;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s, background 0.2s;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: auto; /* Lo empuja hacia el fondo */
+    }
+
+    .btn-plan-wa:active {
+      transform: scale(0.96);
+      background: var(--wa-color-dark);
+    }
+
+    .btn-plan-wa svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 10px;
+      background: transparent;
+      border: none;
+      color: #8E8E93;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .btn-back:hover, .btn-back:active {
+      color: #1A1A1A;
+    }
+
+    .footer-brand {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #C7C7CC;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* Adaptación para dispositivos móviles */
+    @media (max-width: 768px) {
+      .plans-container {
+        grid-template-columns: 1fr; /* Cambia a 1 sola columna */
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .license-card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ios-wrap">
+  <div class="license-card">
+    
+    <!-- Ícono ilustrativo -->
+    <div class="icon-container">
+      <img src="logo.jpg" alt="Logo Nexora ERP">
+    </div>
+
+    <h1>Renueva tu Licencia</h1>
+    <p class="header-desc">Tu acceso a <b>Nexora ERP</b> ha expirado. Selecciona un plan para seguir disfrutando del sistema.</p>
+
+    <!-- Contenedor de Planes (Grid de 3 Columnas) -->
+    <div class="plans-container">
+      
+      <!-- LADO IZQUIERDO: Plan Mensual -->
+      <div class="plan-card">
+        <div class="plan-info">
+          <div class="plan-name">Mensual</div>
+          <div class="plan-price">Q150<span>/mes</span></div>
+          <div class="plan-desc"></div> <!-- Espacio vacío para mantener alineación -->
+          <div class="plan-features">
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Acceso completo
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Soporte estándar
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/50254204183?text=Hola,%20quiero%20renovar%20Nexora%20ERP%20con%20el%20plan%20Mensual%20de%20Q150." class="btn-plan-wa" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.551 4.183 1.597 5.998L.234 23.3l5.441-1.428A11.96 11.96 0 0012.031 24c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.986c-1.782 0-3.525-.48-5.06-1.389l-.364-.216-3.766.988.995-3.674-.236-.376a9.982 9.982 0 01-1.524-5.288c0-5.525 4.498-10.023 10.023-10.023 5.525 0 10.023 4.498 10.023 10.023 0 5.525-4.498 10.023-10.023 10.023zM17.514 14.5c-.301-.151-1.782-.88-2.057-.98-.276-.1-.477-.151-.678.151-.201.301-.778.98-.953 1.18-.176.2-.352.226-.653.076-1.434-.716-2.528-1.536-3.484-2.906-.201-.275 0-.426.15-.576.126-.126.302-.351.452-.527.151-.176.201-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.633-.929-2.235-.251-.602-.502-.502-.678-.502h-.578c-.201 0-.527.075-.803.376-.276.301-1.054 1.029-1.054 2.51 0 1.48 1.079 2.911 1.229 3.111.151.201 2.133 3.238 5.145 4.542.728.301 1.28.477 1.706.627.728.226 1.405.201 1.932.126.577-.075 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.431-.076-.126-.276-.201-.577-.352z"/></svg>
+          Elegir
+        </a>
+      </div>
+
+      <!-- MEDIO: Plan Trimestral -->
+      <div class="plan-card" style="border-color: var(--nexora-green); box-shadow: 0 4px 12px rgba(88, 208, 115, 0.1);">
+        <div class="badge-popular">Más Popular</div>
+        <div class="plan-info">
+          <div class="plan-name">Trimestral</div>
+          <div class="plan-price">Q400<span>/3 meses</span></div>
+          <div class="plan-desc">Ahorras Q50</div>
+          <div class="plan-features">
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Actualizaciones incluidas
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Soporte prioritario
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/50254204183?text=Hola,%20quiero%20renovar%20Nexora%20ERP%20con%20el%20plan%20Trimestral%20de%20Q400." class="btn-plan-wa" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.551 4.183 1.597 5.998L.234 23.3l5.441-1.428A11.96 11.96 0 0012.031 24c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.986c-1.782 0-3.525-.48-5.06-1.389l-.364-.216-3.766.988.995-3.674-.236-.376a9.982 9.982 0 01-1.524-5.288c0-5.525 4.498-10.023 10.023-10.023 5.525 0 10.023 4.498 10.023 10.023 0 5.525-4.498 10.023-10.023 10.023zM17.514 14.5c-.301-.151-1.782-.88-2.057-.98-.276-.1-.477-.151-.678.151-.201.301-.778.98-.953 1.18-.176.2-.352.226-.653.076-1.434-.716-2.528-1.536-3.484-2.906-.201-.275 0-.426.15-.576.126-.126.302-.351.452-.527.151-.176.201-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.633-.929-2.235-.251-.602-.502-.502-.678-.502h-.578c-.201 0-.527.075-.803.376-.276.301-1.054 1.029-1.054 2.51 0 1.48 1.079 2.911 1.229 3.111.151.201 2.133 3.238 5.145 4.542.728.301 1.28.477 1.706.627.728.226 1.405.201 1.932.126.577-.075 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.431-.076-.126-.276-.201-.577-.352z"/></svg>
+          Elegir
+        </a>
+      </div>
+
+      <!-- LADO DERECHO: Plan Anual -->
+      <div class="plan-card">
+        <div class="plan-info">
+          <div class="plan-name">Anual</div>
+          <div class="plan-price">Q1,200<span>/año</span></div>
+          <div class="plan-desc">Ahorras Q600 (Mejor Valor)</div>
+          <div class="plan-features">
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Respaldo de datos
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Soporte VIP 24/7
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/50254204183?text=Hola,%20quiero%20renovar%20Nexora%20ERP%20con%20el%20plan%20Anual%20de%20Q1200." class="btn-plan-wa" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.551 4.183 1.597 5.998L.234 23.3l5.441-1.428A11.96 11.96 0 0012.031 24c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.986c-1.782 0-3.525-.48-5.06-1.389l-.364-.216-3.766.988.995-3.674-.236-.376a9.982 9.982 0 01-1.524-5.288c0-5.525 4.498-10.023 10.023-10.023 5.525 0 10.023 4.498 10.023 10.023 0 5.525-4.498 10.023-10.023 10.023zM17.514 14.5c-.301-.151-1.782-.88-2.057-.98-.276-.1-.477-.151-.678.151-.201.301-.778.98-.953 1.18-.176.2-.352.226-.653.076-1.434-.716-2.528-1.536-3.484-2.906-.201-.275 0-.426.15-.576.126-.126.302-.351.452-.527.151-.176.201-.301.301-.502.1-.2.05-.376-.025-.526-.075-.151-.678-1.633-.929-2.235-.251-.602-.502-.502-.678-.502h-.578c-.201 0-.527.075-.803.376-.276.301-1.054 1.029-1.054 2.51 0 1.48 1.079 2.911 1.229 3.111.151.201 2.133 3.238 5.145 4.542.728.301 1.28.477 1.706.627.728.226 1.405.201 1.932.126.577-.075 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.431-.076-.126-.276-.201-.577-.352z"/></svg>
+          Elegir
+        </a>
+      </div>
+
+    </div>
+
+    <a href="index.html" class="btn-back">Volver al Inicio</a>
+
+    <div class="footer-brand">NEXORA ERP</div>
+  </div>
+</div>
+
+</body>
+</html>
