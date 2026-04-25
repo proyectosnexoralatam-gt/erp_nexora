@@ -1,0 +1,21 @@
+{
+  "name": "Nexora ERP",
+  "short_name": "Nexora ERP",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F2F2F7",
+  "theme_color": "#58D073",
+  "description": "Portal de acceso Nexora ERP",
+  "icons": [
+    {
+      "src": "logo.erp.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.erp.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
